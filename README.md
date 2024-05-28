@@ -26,8 +26,8 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column             | Type   | Options                    |
-| ------------------ | ------ | -------------------------- |
+| Column             | Type    | Options                    |
+| ------------------ | ------  | -------------------------- |
 | nickname           | string  | null: false               |
 | email              | string  | null: false, unique: true |
 | encrypted_password | string  | null: false               |
@@ -35,7 +35,7 @@ Things you may want to cover:
 | last_name          | string  | null: false               |
 | first_name_reading | string  | null: false               |
 | last_name_reading  | string  | null: false               |
-| birth_day_id       | integer | null: false               |
+| birth_day          | date    | null: false               |
 
 
 ### Association
