@@ -8,15 +8,15 @@ class User < ApplicationRecord
   validates :encrypted_password, presence: true
   validates :first_name,         presence: true
   validates :last_name,          presence: true
-  validates :first_name_reading, presence: true
-  validates :last_name_reading,  presence: true
-  validates :birth_day,          presence: true
+  validates :first_name_kana,    presence: true
+  validates :last_name_kana,     presence: true
+  validates :birth_date,         presence: true
 
   validate :password_complexity
   validate :first_name_full_width
   validate :last_name_full_width
-  validate :first_name_reading_katakana
-  validate :last_name_reading_katakana
+  validate :first_name_kana_katakana
+  validate :last_name_kana_katakana
 
   has_many :items, dependent: :nullify
   has_many :orders, dependent: :nullify
@@ -42,15 +42,15 @@ class User < ApplicationRecord
     end
   end
 
-  def first_name_reading_katakana
-    if first_name_reading.present? && first_name_reading !~ /\A[ァ-ヶー]+\z/
-      errors.add(:first_name_reading, 'must be full-width katakana characters')
+  def first_name_kana_katakana
+    if first_name_kana.present? && first_name_kana !~ /\A[ァ-ヶー]+\z/
+      errors.add(:first_name_kana, 'must be full-width katakana characters')
     end
   end
 
-  def last_name_reading_katakana
-    if last_name_reading.present? && last_name_reading !~ /\A[ァ-ヶー]+\z/
-      errors.add(:last_name_reading, 'must be full-width katakana characters')
+  def last_name_kana_katakana
+    if last_name_kana.present? && last_name_kana !~ /\A[ァ-ヶー]+\z/
+      errors.add(:last_name_kana, 'must be full-width katakana characters')
     end
   end
 
