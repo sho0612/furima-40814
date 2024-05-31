@@ -85,6 +85,27 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password]).to include("must include both letters and numbers")
     end
 
+    it 'is not valid with a password consisting only of letters' do
+      user.password = 'abcdef'
+      user.password_confirmation = 'abcdef'
+      expect(user).to_not be_valid
+      expect(user.errors[:password]).to include("must include both letters and numbers")
+    end
+
+    it 'is not valid with a password consisting only of numbers' do
+      user.password = '123456'
+      user.password_confirmation = '123456'
+      expect(user).to_not be_valid
+      expect(user.errors[:password]).to include("must include both letters and numbers")
+    end
+
+    it 'is not valid with a password containing full-width characters' do
+      user.password = 'ｐａｓｓｗｏｒｄ123'
+      user.password_confirmation = 'ｐａｓｓｗｏｒｄ123'
+      expect(user).to_not be_valid
+      expect(user.errors[:password]).to include("must include both letters and numbers")
+    end
+
     it 'is not valid with a first name not in full-width characters' do
       user.first_name = 'Taro'
       expect(user).to_not be_valid
