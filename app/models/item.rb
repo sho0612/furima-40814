@@ -6,8 +6,10 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_day
 
+  mount_uploader :image, ImageUploader
 
   belongs_to :user
+  has_one_attached :image
 # has_one :order  
 
   validates :name, presence: true
@@ -18,5 +20,6 @@ class Item < ApplicationRecord
   validates :shipping_fee_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :shipping_day_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :image, presence: true
 
 end
