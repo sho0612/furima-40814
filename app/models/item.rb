@@ -2,11 +2,9 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
-  belongs_to :shipping_fee
+  belongs_to :shipping_fee, class_name: 'ShippingFee'
   belongs_to :prefecture
-  belongs_to :shipping_day
-
-  mount_uploader :image, ImageUploader
+  belongs_to :shipping_day, class_name: 'ShippingDay'
 
   belongs_to :user
   has_one_attached :image
