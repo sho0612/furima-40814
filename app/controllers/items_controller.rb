@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to @item, notice: 'Item was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
