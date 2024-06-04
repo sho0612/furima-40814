@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :item do
     name { Faker::Commerce.product_name }
     description { Faker::Lorem.paragraph }
-    price { Faker::Number.between(from: 300, to: 9999999) }
+    price { Faker::Number.between(from: 300, to: 9_999_999) }
     user
     category_id { Faker::Number.between(from: 2, to: 10) }
     condition_id { Faker::Number.between(from: 2, to: 6) }
@@ -12,4 +12,3 @@ FactoryBot.define do
     image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/sample_image.png'), 'image/png') }
   end
 end
-

@@ -27,29 +27,27 @@ class User < ApplicationRecord
     errors.add :password, 'must include both letters and numbers'
   end
 
-
   def first_name_full_width
-    if first_name.present? && first_name !~ /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
-      errors.add(:first_name, 'must be full-width characters (kanji, hiragana, katakana)')
-    end
+    return unless first_name.present? && first_name !~ /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+
+    errors.add(:first_name, 'must be full-width characters (kanji, hiragana, katakana)')
   end
 
   def last_name_full_width
-    if last_name.present? && last_name !~ /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
-      errors.add(:last_name, 'must be full-width characters (kanji, hiragana, katakana)')
-    end
+    return unless last_name.present? && last_name !~ /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+
+    errors.add(:last_name, 'must be full-width characters (kanji, hiragana, katakana)')
   end
 
   def first_name_kana_katakana
-    if first_name_kana.present? && first_name_kana !~ /\A[ァ-ヶー]+\z/
-      errors.add(:first_name_kana, 'must be full-width katakana characters')
-    end
+    return unless first_name_kana.present? && first_name_kana !~ /\A[ァ-ヶー]+\z/
+
+    errors.add(:first_name_kana, 'must be full-width katakana characters')
   end
 
   def last_name_kana_katakana
-    if last_name_kana.present? && last_name_kana !~ /\A[ァ-ヶー]+\z/
-      errors.add(:last_name_kana, 'must be full-width katakana characters')
-    end
-  end
+    return unless last_name_kana.present? && last_name_kana !~ /\A[ァ-ヶー]+\z/
 
+    errors.add(:last_name_kana, 'must be full-width katakana characters')
+  end
 end

@@ -29,19 +29,19 @@ RSpec.describe Item, type: :model do
     it 'is not valid with a price less than 300' do
       item.price = 299
       expect(item).to_not be_valid
-      expect(item.errors[:price]).to include("must be a number between ¥300 and ¥9,999,999")
+      expect(item.errors[:price]).to include('must be a number between ¥300 and ¥9,999,999')
     end
 
     it 'is not valid with a price greater than 9999999' do
-      item.price = 10000000
+      item.price = 10_000_000
       expect(item).to_not be_valid
-      expect(item.errors[:price]).to include("must be a number between ¥300 and ¥9,999,999")
+      expect(item.errors[:price]).to include('must be a number between ¥300 and ¥9,999,999')
     end
 
     it 'is not valid with a non-integer price' do
       item.price = 'nine hundred'
       expect(item).to_not be_valid
-      expect(item.errors[:price]).to include("must be a number between ¥300 and ¥9,999,999")
+      expect(item.errors[:price]).to include('must be a number between ¥300 and ¥9,999,999')
     end
 
     it 'is not valid without a category_id' do
