@@ -8,6 +8,12 @@ RSpec.describe Item, type: :model do
       expect(item).to be_valid
     end
 
+    it 'is not valid without a user' do
+      item = Item.new(user: nil)
+      item.valid?
+      expect(item.errors.full_messages).to include("User must exist")
+    end
+
     it 'is not valid without a name' do
       item.name = nil
       expect(item).to_not be_valid
