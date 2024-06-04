@@ -24,13 +24,13 @@ RSpec.describe User, type: :model do
     it 'is not valid with a duplicate email' do
       create(:user, email: user.email)
       expect(user).to_not be_valid
-      expect(user.errors[:email]).to include("has already been taken")
+      expect(user.errors[:email]).to include('has already been taken')
     end
 
     it 'is not valid without a valid email format' do
       user.email = 'invalidemail.com'
       expect(user).to_not be_valid
-      expect(user.errors[:email]).to include("is invalid")
+      expect(user.errors[:email]).to include('is invalid')
     end
 
     it 'is not valid without a password' do
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
       user.password = '12345'
       user.password_confirmation = '12345'
       expect(user).to_not be_valid
-      expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+      expect(user.errors[:password]).to include('is too short (minimum is 6 characters)')
     end
 
     it 'is not valid without a first name' do
@@ -82,52 +82,52 @@ RSpec.describe User, type: :model do
       user.password = 'password'
       user.password_confirmation = 'password'
       expect(user).to_not be_valid
-      expect(user.errors[:password]).to include("must include both letters and numbers")
+      expect(user.errors[:password]).to include('must include both letters and numbers')
     end
 
     it 'is not valid with a password consisting only of letters' do
       user.password = 'abcdef'
       user.password_confirmation = 'abcdef'
       expect(user).to_not be_valid
-      expect(user.errors[:password]).to include("must include both letters and numbers")
+      expect(user.errors[:password]).to include('must include both letters and numbers')
     end
 
     it 'is not valid with a password consisting only of numbers' do
       user.password = '123456'
       user.password_confirmation = '123456'
       expect(user).to_not be_valid
-      expect(user.errors[:password]).to include("must include both letters and numbers")
+      expect(user.errors[:password]).to include('must include both letters and numbers')
     end
 
     it 'is not valid with a password containing full-width characters' do
       user.password = 'ｐａｓｓｗｏｒｄ123'
       user.password_confirmation = 'ｐａｓｓｗｏｒｄ123'
       expect(user).to_not be_valid
-      expect(user.errors[:password]).to include("must include both letters and numbers")
+      expect(user.errors[:password]).to include('must include both letters and numbers')
     end
 
     it 'is not valid with a first name not in full-width characters' do
       user.first_name = 'Taro'
       expect(user).to_not be_valid
-      expect(user.errors[:first_name]).to include("must be full-width characters (kanji, hiragana, katakana)")
+      expect(user.errors[:first_name]).to include('must be full-width characters (kanji, hiragana, katakana)')
     end
 
     it 'is not valid with a last name not in full-width characters' do
       user.last_name = 'Yamada'
       expect(user).to_not be_valid
-      expect(user.errors[:last_name]).to include("must be full-width characters (kanji, hiragana, katakana)")
+      expect(user.errors[:last_name]).to include('must be full-width characters (kanji, hiragana, katakana)')
     end
 
     it 'is not valid with a first name kana not in katakana' do
       user.first_name_kana = 'たろう'
       expect(user).to_not be_valid
-      expect(user.errors[:first_name_kana]).to include("must be full-width katakana characters")
+      expect(user.errors[:first_name_kana]).to include('must be full-width katakana characters')
     end
 
     it 'is not valid with a last name kana not in katakana' do
       user.last_name_kana = 'やまだ'
       expect(user).to_not be_valid
-      expect(user.errors[:last_name_kana]).to include("must be full-width katakana characters")
+      expect(user.errors[:last_name_kana]).to include('must be full-width katakana characters')
     end
   end
 end
