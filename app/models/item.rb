@@ -10,6 +10,14 @@ class Item < ApplicationRecord
   has_one_attached :image
   # has_one :order
 
+  def image_url
+    image.attached? ? Rails.application.routes.url_helpers.url_for(image) : 'default_image_url.png'
+  end
+
+  def sold_out?
+    false
+  end
+
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true,
