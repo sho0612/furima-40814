@@ -23,16 +23,16 @@ class ItemsController < ApplicationController
     end
   end
 
-   def edit
-   end
+  def edit
+  end
 
-   def update
-     if @item.update(item_params)
-       redirect_to @item, notice: 'Item was successfully updated.'
-     else
-       render :edit, status: :unprocessable_entity
-     end
-   end
+  def update
+    if @item.update(item_params)
+      redirect_to @item, notice: 'Item was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # def destroy
   #   @item.destroy
@@ -51,9 +51,8 @@ class ItemsController < ApplicationController
   end
 
   def correct_user
-    unless current_user == @item.user
-      redirect_to root_path, alert: '権限がありません。'
-    end
-  end
+    return if current_user == @item.user
 
+    redirect_to root_path, alert: '権限がありません。'
+  end
 end
