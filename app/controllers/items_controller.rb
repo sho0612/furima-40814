@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -23,16 +24,17 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def edit
-  # end
+   def edit
+    @item = Item.find(params[:id])
+   end
 
-  # def update
-  #   if @item.update(item_params)
-  #     redirect_to @item, notice: 'Item was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
+   def update
+     if @item.update(item_params)
+       redirect_to @item, notice: 'Item was successfully updated.'
+     else
+       render :edit, status: :unprocessable_entity
+     end
+   end
 
   # def destroy
   #   @item.destroy
@@ -49,4 +51,11 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :price, :category_id, :condition_id, :shipping_fee_id, :prefecture_id,
                                  :shipping_day_id, :image)
   end
+
+  def correct_user
+    unless current_user == @item.user
+      redirect_to root_path, alert: '権限がありません。'
+    end
+  end
+
 end
