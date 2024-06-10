@@ -32,7 +32,7 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @order_address, url: item_orders_path(@item), local: true do |f| %>
+    <%= form_with model: @order_address, url: item_orders_path(@item), local: true, id: 'charge-form' do |f| %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -125,4 +125,7 @@
     <% end %>
   </div>
 </div>
+
+ <script type="text/javascript" src="https://js.pay.jp/v2/pay.js"></script>
+ 
 <%= render "shared/second-footer"%>
