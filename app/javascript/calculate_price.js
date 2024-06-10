@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const priceInput = document.getElementById('item-price');
   const addTaxPrice = document.getElementById('add-tax-price');
   const profit = document.getElementById('profit');
 
-  if (priceInput) {
+  if (priceInput && addTaxPrice && profit) {
     priceInput.addEventListener('input', () => {
       const price = parseInt(priceInput.value, 10);
 
