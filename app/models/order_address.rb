@@ -5,7 +5,7 @@ class OrderAddress
 
   with_options presence: true do
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' }
-    validates :prefecture_id
+    validates :prefecture_id, numericality: { other_than: 1, message: "must be other than 1" }
     validates :municipalities
     validates :street
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Enter only 10 or 11 digits' }
