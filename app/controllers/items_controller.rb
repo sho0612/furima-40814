@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :check_if_sold, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -34,10 +35,10 @@ class ItemsController < ApplicationController
     end
   end
 
-   def destroy
-     @item.destroy
-     redirect_to items_url, notice: 'Item was successfully destroyed.'
-   end
+  def destroy
+    @item.destroy
+    redirect_to items_url, notice: 'Item was successfully destroyed.'
+  end
 
   private
 
@@ -54,5 +55,11 @@ class ItemsController < ApplicationController
     return if current_user == @item.user
 
     redirect_to root_path, alert: '権限がありません。'
+  end
+
+  def check_if_sold
+    return unless @item.order.present?
+
+    redirect_to root_path, alert: 'This item has already been sold.'
   end
 end
