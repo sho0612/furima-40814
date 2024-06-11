@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validate :last_name_kana_katakana
 
   has_many :items, dependent: :nullify
-  # has_many :orders, dependent: :nullify
+  has_many :orders, dependent: :nullify
 
   private
 
