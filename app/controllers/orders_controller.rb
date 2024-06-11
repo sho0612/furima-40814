@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :redirect_if_not_allowed, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -49,6 +51,14 @@ class OrdersController < ApplicationController
     rescue Payjp::PayjpError => e
       Rails.logger.error("Payjp error: #{e.message}")
       render :index, alert: 'Payment processing failed. Please try again.', status: :unprocessable_entity
+    end
+  end
+  
+  def redirect_if_not_allowed
+    if @item.user_id == current_user.id
+      redirect_to root_path, alert: 'You cannot purchase your own item.'
+    elsif @item.order.present?
+      redirect_to root_path, alert: 'This item has already been sold.'
     end
   end
 
