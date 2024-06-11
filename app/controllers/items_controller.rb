@@ -35,10 +35,10 @@ class ItemsController < ApplicationController
     end
   end
 
-   def destroy
-     @item.destroy
-     redirect_to items_url, notice: 'Item was successfully destroyed.'
-   end
+  def destroy
+    @item.destroy
+    redirect_to items_url, notice: 'Item was successfully destroyed.'
+  end
 
   private
 
@@ -58,9 +58,8 @@ class ItemsController < ApplicationController
   end
 
   def check_if_sold
-    if @item.order.present?
-      redirect_to root_path, alert: 'This item has already been sold.'
-    end
+    return unless @item.order.present?
+
+    redirect_to root_path, alert: 'This item has already been sold.'
   end
-  
 end

@@ -1,7 +1,7 @@
 # spec/factories/order_addresses.rb
 FactoryBot.define do
   factory :order_address do
-    post_code { '123-4567' }  # 固定のフォーマットを使用
+    post_code { '123-4567' } # 固定のフォーマットを使用
     prefecture_id { Faker::Number.between(from: 1, to: 47) }
     municipalities { Faker::Address.city }
     street { Faker::Address.street_address }

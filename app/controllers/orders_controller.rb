@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :redirect_if_not_allowed, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_address = OrderAddress.new
   end
 
@@ -19,10 +19,10 @@ class OrdersController < ApplicationController
 
       pay_item
       @order_address.save
-      return redirect_to root_path, notice: 'Order and address were successfully created.'
+      redirect_to root_path, notice: 'Order and address were successfully created.'
     else
 
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -36,12 +36,14 @@ class OrdersController < ApplicationController
   end
 
   def order_address_params
-    params.require(:order_address).permit(:post_code, :prefecture_id, :municipalities, :street, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+    params.require(:order_address).permit(:post_code, :prefecture_id, :municipalities, :street, :building, :phone_number).merge(
+      user_id: current_user.id, item_id: @item.id, token: params[:token]
+    )
   end
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-    Rails.logger.debug("Token: #{order_address_params[:token]}")  # デバッグ用
+    Rails.logger.debug("Token: #{order_address_params[:token]}") # デバッグ用
     begin
       Payjp::Charge.create(
         amount: @item.price,
@@ -53,7 +55,7 @@ class OrdersController < ApplicationController
       render :index, alert: 'Payment processing failed. Please try again.', status: :unprocessable_entity
     end
   end
-  
+
   def redirect_if_not_allowed
     if @item.user_id == current_user.id
       redirect_to root_path, alert: 'You cannot purchase your own item.'
@@ -61,5 +63,4 @@ class OrdersController < ApplicationController
       redirect_to root_path, alert: 'This item has already been sold.'
     end
   end
-
 end
