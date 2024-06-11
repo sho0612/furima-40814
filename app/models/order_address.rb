@@ -7,7 +7,7 @@ class OrderAddress
   validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
   validates :prefecture_id, :municipalities, :street, :phone_number, presence: true
   validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Enter only 10 or 11 digits" }
-  validates :token, presence: true
+  validates :user_id, :item_id, :token, presence: true
 
   def save
     return false unless valid?
