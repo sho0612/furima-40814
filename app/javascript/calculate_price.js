@@ -1,23 +1,16 @@
-document.addEventListener('turbo:load', () => {
-  const priceInput = document.getElementById('item-price');
-  const addTaxPrice = document.getElementById('add-tax-price');
-  const profit = document.getElementById('profit');
+function price(){
 
-  if (priceInput && addTaxPrice && profit) {
-    priceInput.addEventListener('input', () => {
-      const price = parseInt(priceInput.value, 10);
+  const inputPrice = document.getElementById("item-price")
+  const addTaxPrice = document.getElementById("add-tax-price")
+  const profit = document.getElementById("profit")
 
-      if (isNaN(price) || price < 300 || price > 9999999) {
-        addTaxPrice.innerText = '0';
-        profit.innerText = '0';
-        return;
-      }
 
-      const fee = Math.floor(price * 0.1);
-      const profitAmount = price - fee;
+  inputPrice.addEventListener('input', function(){
+      const inputValue = inputPrice.value
+      addTaxPrice.innerHTML = Math.trunc(inputValue * 0.1)
+      profit.innerHTML =  Math.ceil(inputValue * 0.9)
+  })
 
-      addTaxPrice.innerText = fee.toLocaleString();
-      profit.innerText = profitAmount.toLocaleString();
-    });
-  }
-});
+}
+window.addEventListener('turbo:load', price)
+window.addEventListener('turbo:render', price);
